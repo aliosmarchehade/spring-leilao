@@ -10,6 +10,7 @@ import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.github.aliosmarchehade.leilao.exception.NaoEncontradoExcecao;
 import com.github.aliosmarchehade.leilao.model.Pessoa;
 import com.github.aliosmarchehade.leilao.repository.PessoaRepository;
 
@@ -26,12 +27,11 @@ public class PessoaService {
     }
 
     public Pessoa alterar(Pessoa pessoa){
-        Pessoa pessoaBanco = pessoaRepository.findById(pessoa.getId())
-        .orElseThrow(()->new NoSuchElementException(messageSource.getMessage("pessoa.notfound",
-        new Object[] {pessoa.getId()},
-        LocaleContextHolder.getLocale())));
-        pessoaBanco.setNome(pessoa.getNome());
-        pessoaBanco.setEmail(pessoa.getEmail());
+        Pessoa pessoaBanco = buscarPorId(pessoa.getId());
+        
+        pessoa.setNome(pessoa.getNome());
+        pessoa.setEmail(pessoa.getEmail());
+
         return pessoaRepository.save(pessoaBanco);
     }
 
@@ -42,7 +42,7 @@ public class PessoaService {
 
     public Pessoa buscarPorId(Long id){
         return pessoaRepository.findById(id)
-            .orElseThrow(()->new NoSuchElementException(messageSource.getMessage("pessoa.notfound",
+            .orElseThrow(()->new NaoEncontradoExcecao(messageSource.getMessage("pessoa.notfound",
                 new Object[] {id},
                     LocaleContextHolder.getLocale())));
     }

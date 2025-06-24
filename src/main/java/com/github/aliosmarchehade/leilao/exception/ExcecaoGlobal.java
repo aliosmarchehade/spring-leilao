@@ -12,6 +12,16 @@ import com.github.aliosmarchehade.leilao.dto.RespostaErro;
 public class ExcecaoGlobal {
 
 
+    
+    @ExceptionHandler(NegocioExcecao.class)
+    public ResponseEntity<RespostaErro>NegocioExcecao(NegocioExcecao ex, WebRequest request){
+
+        RespostaErro respostaErro = new RespostaErro(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de Negócio", 
+        ex.getMessage(), request.getDescription(false), null);
+        return new ResponseEntity<>(respostaErro, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
+
     @ExceptionHandler(NaoEncontradoExcecao.class)
     public ResponseEntity<RespostaErro>naoEncontrado(NaoEncontradoExcecao ex, WebRequest request){
 

@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
 import com.github.aliosmarchehade.leilao.exception.NaoEncontradoExcecao;
 import com.github.aliosmarchehade.leilao.model.Pessoa;
@@ -22,8 +25,24 @@ public class PessoaService {
 
     @Autowired
     private MessageSource messageSource;
+
+    @Autowired
+    private EmailService emailService;
+
     public Pessoa inserir(Pessoa pessoa){
-        return pessoaRepository.save(pessoa);
+        Pessoa pessoaCadastrada = pessoaRepository.save(pessoa);
+        //emailService.enviarEmailSimples(pessoaCadastrada.getEmail(), 
+        //"Cadastrado com Sucesso", "Cadastro no Sistema de Leilão XXX foi feito com sucesso!");
+        enviarEmailSucesso(pessoaCadastrada);
+        return pessoaCadastrada;
+    }
+
+    private void enviarEmailSucesso(Pessoa pessoa){
+        Context context = new Context();
+        context.setVariable("nome", pessoa.getNome());
+        emailService.emailTemplate
+        (pessoa.getEmail(),"Cadastro Sucesso", context, "cadastroSucesso");
+
     }
 
     public Pessoa alterar(Pessoa pessoa){
@@ -47,8 +66,8 @@ public class PessoaService {
                     LocaleContextHolder.getLocale())));
     }
 
-    public List<Pessoa> buscarTodos(){
-        return pessoaRepository.findAll();
+    public Page<Pessoa> buscarTodos(Pageable pageable){
+        return pessoaRepository.findAll(pageable);
     }
 }
 

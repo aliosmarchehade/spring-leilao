@@ -1,0 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  background: #ada9a9;
+  color: white;
+}
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px; 
+  box-sizing: border-box; 
+}
+
+.login-image-wrapper {
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  height: 430px; 
+  max-width: 900px;
+  flex-shrink: 0; 
+}
+
+.login-image {
+  display: block;
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
+  border-radius: inherit;
+}
+
+.login-box {
+  background-color: #d9d9d9;
+  padding: 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 470px;
+  height: 430px; 
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  box-sizing: border-box; 
+  flex-shrink: 0; 
+}
+
+.login-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24px;
+  color:#282829
+}
+
+.input-group {
+  margin-bottom: 15px; 
+
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 4px;
+  color: #122346;
+  font-size: 14px;
+}
+
+.input {
+  width: 100%; 
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #282829;
+  color: white;
+  border: 1px solid #282829; 
+  box-sizing: border-box; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.input:focus {
+  outline: none;
+  border-color: #1727b6; 
+  box-shadow: 0 0 0 3px rgba(23, 39, 182, 0.3); 
+}
+
+
+
+.button-group {
+    display: flex; 
+    justify-content: center; 
+    gap: 25px; 
+    margin-top: 20px; 
+    margin-bottom: 15px; 
+}
+
+.login-button,
+.cadastro-button {
+  width: 190px; 
+  padding: 11px;
+  background-color: #1c1d1c;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+ 
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  flex-shrink: 0; 
+}
+
+.login-button:hover,
+.cadastro-button:hover {
+  background-color: #24643d; 
+  transform: translateY(-2px); 
+}
+
+
+.login-links {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 16px;
+}
+.login-links-ntc {
+  text-align: right;
+  font-size: 14px;
+  margin-top: -20px;
+  color: #1727b6;
+}
+
+.login-links a {
+  color: #1c1c1d;
+  text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #b11c1c;
+  font-size: 14px;
+  margin-bottom: 12px;
+  text-align: center; 
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+  background-color:   #1a1a1a; 
+  color: #d9d9d9; 
+  font-family: 'Montserrat', sans-serif;
+  font-size: 30px;
+}
+.dashboard p{
+  font-size: 20px;
+}
+

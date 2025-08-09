@@ -57,6 +57,14 @@ body {
   color:#282829
 }
 
+.login-title2 {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 4px;
+  color:#282829
+}
+
 .input-group {
   margin-bottom: 15px; 
 
@@ -161,3 +169,21 @@ body {
   font-size: 20px;
 }
 
+/* Ajusta a posição do título dentro do card */
+.login-title2 {
+  margin-top: 0px; /* desce um pouco o título */
+}
+
+/* Sobe o link "recuperar senha" */
+.login-links2 {
+  margin-top: 0px; /* diminui o espaço antes do link */
+} 
+.recuperar-box {
+  height: 320px; /* altura maior que o padrão 430px */
+  max-width: 500px; /* opcional para deixar mais largo */
+
+}
+.cancel-button:hover {
+  background-color: #b11c1c; /* vermelho */
+  transform: translateY(-2px); /* mantém o efeito */
+}

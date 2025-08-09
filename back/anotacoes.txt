@@ -1,1 +1,2 @@
 recompilar: ./mvnw clean install
+rodar: ./mvnw spring-boot:run

@@ -1,15 +1,14 @@
 package com.github.aliosmarchehade.leilao.service;
 
-import java.rmi.NoSuchObjectException;
-import java.util.List;
-import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContext;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
@@ -18,7 +17,7 @@ import com.github.aliosmarchehade.leilao.model.Pessoa;
 import com.github.aliosmarchehade.leilao.repository.PessoaRepository;
 
 @Service
-public class PessoaService {
+public class PessoaService implements UserDetailsService{
     @Autowired
     private PessoaRepository pessoaRepository;
 
@@ -68,6 +67,12 @@ public class PessoaService {
 
     public Page<Pessoa> buscarTodos(Pageable pageable){
         return pessoaRepository.findAll(pageable);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
     }
 }
 

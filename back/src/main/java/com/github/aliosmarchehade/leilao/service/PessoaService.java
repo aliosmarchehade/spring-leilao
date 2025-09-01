@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
@@ -32,6 +33,8 @@ public class PessoaService implements UserDetailsService{
 
     @Autowired
     private EmailService emailService;
+
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Pessoa inserir(Pessoa pessoa){
         Pessoa pessoaCadastrada = pessoaRepository.save(pessoa);

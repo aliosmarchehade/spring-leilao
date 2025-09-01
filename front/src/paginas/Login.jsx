@@ -3,8 +3,10 @@ import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import marteloLeilao from "../assets/leilao-martelo.png";
+import AutenticacaoService from "../services/AutenticacaoService";
 
 const Login = () => {
+  const autenticacaoService = new AutenticacaoService();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();

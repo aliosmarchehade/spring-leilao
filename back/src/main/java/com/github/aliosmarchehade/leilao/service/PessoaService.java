@@ -1,6 +1,9 @@
 package com.github.aliosmarchehade.leilao.service;
 
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -15,6 +18,8 @@ import org.thymeleaf.context.Context;
 import com.github.aliosmarchehade.leilao.exception.NaoEncontradoExcecao;
 import com.github.aliosmarchehade.leilao.model.Pessoa;
 import com.github.aliosmarchehade.leilao.repository.PessoaRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class PessoaService implements UserDetailsService{
@@ -72,6 +77,27 @@ public class PessoaService implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return pessoaRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Pessoa nao encontrada"));
+    }
+
+    @Transactional
+    public void solicitarRecuperacao(String email){
+        Pessoa pessoa = pessoaRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário Não Encontrado"));
+
+        String codigo = UUID.randomUUID().toString().substring(0,6).toUpperCase();
+        pessoa.setCodigoValidacao(codigo);
+        pessoa.setValidadeCodigoValidacao(LocalDateTime.now().plusMinutes(30));
+        pessoaRepository.save(pessoa);
+
+        Context context = new Context();
+        context.setVariable("nome", pessoa.getNome());
+        context.setVariable("codigo", codigo);
+
+        emailService.emailTemplate(
+            pessoa.getEmail(),
+            "Recuperação de Senha",
+            context,
+            "recuperarSenha" 
+            );
     }
 }
 

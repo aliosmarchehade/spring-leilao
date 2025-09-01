@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.aliosmarchehade.leilao.dto.RecuperarSenha;
 import com.github.aliosmarchehade.leilao.model.Pessoa;
 import com.github.aliosmarchehade.leilao.service.PessoaService;
+
 
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
@@ -48,5 +50,11 @@ public class PessoaController {
     public ResponseEntity<String> excluir(@PathVariable("id")Long id){
         pessoaService.deletar(id);
         return ResponseEntity.ok("Excluido");
+    }
+
+    @PostMapping("/recuperar-senha")
+    public ResponseEntity<Void> solicitarRecuperacao(@RequestBody RecuperarSenha request){
+        pessoaService.solicitarRecuperacao(request.getEmail());
+        return ResponseEntity.ok().build();
     }
 }

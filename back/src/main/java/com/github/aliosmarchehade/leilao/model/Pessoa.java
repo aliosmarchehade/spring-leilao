@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collector;
@@ -15,8 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-
 
 
 @Entity
@@ -34,6 +33,12 @@ public class Pessoa implements UserDetails{
     private String email;
     @JsonIgnore
     private String senha; 
+
+    @Column(name = "codigo_validacao")
+    private String codigoValidacao;
+
+    @Column(name = "validade_codigo_validacao")
+    private LocalDateTime validadeCodigoValidacao;
 
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true, 
     fetch = FetchType.EAGER)

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.github.aliosmarchehade.leilao.dto.AlterarSenhaCodigo;
 import com.github.aliosmarchehade.leilao.dto.RecuperarSenha;
 import com.github.aliosmarchehade.leilao.model.Pessoa;
 import com.github.aliosmarchehade.leilao.service.PessoaService;
@@ -55,6 +56,12 @@ public class PessoaController {
     @PostMapping("/recuperar-senha")
     public ResponseEntity<Void> solicitarRecuperacao(@RequestBody RecuperarSenha request){
         pessoaService.solicitarRecuperacao(request.getEmail());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/alterar-senha-codigo")
+    public ResponseEntity<Void> alterarSenhaCodigo(@RequestBody AlterarSenhaCodigo request){
+        pessoaService.alterarSenhaComCodigo(request.getEmail(), request.getCodigo(), request.getNovaSenha());
         return ResponseEntity.ok().build();
     }
 }

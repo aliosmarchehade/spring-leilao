@@ -102,5 +102,21 @@ public class PessoaService implements UserDetailsService{
             "recuperarSenha" 
             );
     }
+
+    @Transactional
+    public void alterarSenhaComCodigo(String email, String codigo, String novaSenha){
+        Pessoa pessoa = pessoaRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        if(pessoa.getCodigoValidacao() == null || !pessoa.getCodigoValidacao().equals(codigo)||
+        pessoa.getValidadeCodigoValidacao().isBefore(LocalDateTime.now())){
+            throw new RuntimeException("Código expirado ou inválido!");
+        }
+
+        pessoa.setSenha(encoder.encode(novaSenha));
+
+        pessoa.setCodigoValidacao(null);
+        pessoa.setValidadeCodigoValidacao(null);
+        pessoaRepository.save(pessoa);
+    }
 }
 

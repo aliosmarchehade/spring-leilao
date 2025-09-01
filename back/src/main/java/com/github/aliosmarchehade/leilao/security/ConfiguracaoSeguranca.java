@@ -52,6 +52,7 @@ public class ConfiguracaoSeguranca {
             .requestMatchers("/lance**").permitAll()
             .requestMatchers("/leilao/public").permitAll()
             .requestMatchers("/pessoa/recuperar-senha").permitAll()
+            .requestMatchers("/pessoa/alterar-senha-codigo").permitAll()
             /* .requestMatchers("/api/pessoa/**").hasRole("ADMIN") */
                 .anyRequest().authenticated()
             )

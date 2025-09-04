@@ -30,19 +30,15 @@ public class FeedbackController {
     @GetMapping
     public ResponseEntity <Page<Feedback>> buscarTodos(Pageable pageable){
         return ResponseEntity.ok(feedbackService.buscarTodos(pageable));
-
     }
-
     @PostMapping
     public ResponseEntity<Feedback> inserir(@Valid @RequestBody Feedback feedback){
         return ResponseEntity.ok(feedbackService.inserir(feedback));
     } 
-
     @PutMapping
     public ResponseEntity<Feedback> alterar(@Valid @RequestBody Feedback feedback){
         return ResponseEntity.ok(feedbackService.alterar(feedback));
     } 
-
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable("id")Long id){
         feedbackService.deletar(id);

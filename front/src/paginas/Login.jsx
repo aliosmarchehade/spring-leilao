@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Input } from "../components/Input";
-import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import marteloLeilao from "../assets/leilao-martelo.png";
 import AutenticacaoService from "../services/AutenticacaoService";
@@ -9,20 +8,32 @@ const Login = () => {
   const autenticacaoService = new AutenticacaoService();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = login(email, password);
-    if (user) {
-      navigate("/dashboard");
-    } else {
-      setError("Usuário ou senha inválidos");
+
+    try {
+      const userData = await autenticacaoService.login(email, password);
+
+      if (userData) {
+        // Se o backend retornar token, salvar no localStorage
+        if (userData.token) {
+          localStorage.setItem("token", userData.token);
+        }
+
+        // Você pode salvar os dados do usuário também, se precisar
+        localStorage.setItem("user", JSON.stringify(userData));
+
+        navigate("/dashboard");
+      } else {
+        setError("Usuário ou senha inválidos");
+      }
+    } catch (err) {
+      setError("Erro ao conectar ao servidor");
     }
   };
-
 
   const handleCadastroClick = () => {
     navigate("/cadastro");
@@ -30,7 +41,6 @@ const Login = () => {
 
   return (
     <div className="login-container">
-     
       <div className="login-image-wrapper">
         <img src={marteloLeilao} alt="Martelo de Leilão" className="login-image" />
       </div>
@@ -50,29 +60,32 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-         
+
           <div className="button-group">
             <button type="submit" className="login-button">
               Acessar
             </button>
 
-            <button type="button" className="cadastro-button" onClick={handleCadastroClick}>
+            <button
+              type="button"
+              className="cadastro-button"
+              onClick={handleCadastroClick}
+            >
               Cadastre-se
             </button>
           </div>
         </form>
-  
+
         <div className="login-links-ntc">
           <p>
-            Não tem conta?{' '}
-            <a href="/cadastro"></a>
+            Não tem conta? <a href="/cadastro">Cadastre-se aqui</a>
           </p>
-          </div>
-          <div className="login-links">
+        </div>
+        <div className="login-links">
           <p>
             <a href="/recuperar">Recuperar senha</a>
           </p>
-          </div>
+        </div>
       </div>
     </div>
   );

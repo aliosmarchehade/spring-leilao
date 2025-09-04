@@ -12,7 +12,6 @@ import com.github.aliosmarchehade.leilao.exception.NaoEncontradoExcecao;
 import com.github.aliosmarchehade.leilao.model.Feedback;
 import com.github.aliosmarchehade.leilao.repository.FeedbackRepository;
 
-
 @Service
 public class FeedbackService {
 
@@ -26,8 +25,6 @@ public class FeedbackService {
         Feedback feedbackCadastrado = feedbackRepository.save(feedback);
         return feedbackCadastrado;
     }
-
-
     public Feedback alterar(Feedback feedback) {
         Feedback feedbackBanco = buscarPorId(feedback.getId());
         feedback.setComentario(feedback.getComentario());

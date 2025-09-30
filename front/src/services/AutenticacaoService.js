@@ -14,4 +14,18 @@ export default class AutenticacaoService {
       return null;
     }
   }
+
+  async register(nome, email, senha) {
+    try {
+      const response = await axios.post("http://localhost:8080/pessoa", {
+        nome,
+        email,
+        senha,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Erro ao registrar:", error);
+      return null;
+    }
+  }
 }

@@ -37,6 +37,8 @@ public class PessoaService implements UserDetailsService{
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public Pessoa inserir(Pessoa pessoa){
+
+        pessoa.setSenha(encoder.encode(pessoa.getSenha()));
         Pessoa pessoaCadastrada = pessoaRepository.save(pessoa);
         //emailService.enviarEmailSimples(pessoaCadastrada.getEmail(), 
         //"Cadastrado com Sucesso", "Cadastro no Sistema de Leilão XXX foi feito com sucesso!");

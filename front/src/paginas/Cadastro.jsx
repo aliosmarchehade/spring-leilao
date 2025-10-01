@@ -3,7 +3,7 @@ import { Input } from "../components/Input";
 import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import ButtonGroup from "../components/ButtonGroup";
-import marteloLeilao from "../assets/leilao-martelo.png";
+import carroLeilao from "../assets/carro.png";
 
 const Cadastro = () => {
   const [name, setName] = useState("");
@@ -34,7 +34,7 @@ const Cadastro = () => {
   return (
     <div className="login-container">
       <div className="login-image-wrapper">
-        <img src={marteloLeilao} alt="Martelo de Leilão" className="login-image" />
+        <img src={carroLeilao} alt="Martelo de Leilão" className="login-image" />
       </div>
 
       <div className="login-box">

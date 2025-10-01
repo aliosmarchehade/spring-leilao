@@ -5,6 +5,7 @@ import Cadastro from "./paginas/Cadastro";
 import Recuperar from "./paginas/Recuperar";
 
 import { fakeUsers } from "./data/usuarios";
+import Leiloes from "./paginas/Leiloes";
 
 if (!localStorage.getItem("fakeUsers")) {
   localStorage.setItem("fakeUsers", JSON.stringify(fakeUsers));
@@ -17,9 +18,10 @@ const App = () => {
         <Route path="/" element={<Login />} />  
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/recuperar" element={<Recuperar />} />
-        <Route path="/dashboard" element={<div className='dashboard'>Bem-vindo ao sistema de leilão !!<br></br>
+        <Route path="/dashboard" element={<Leiloes />} />
+        {/* <Route path="/dashboard" element={<div className='dashboard'>Bem-vindo ao sistema de leilão !!<br></br>
           <p>🚧página em construção🚧</p>
-        </div>} />
+        </div>} /> */}
       </Routes>
     </Router>
   );

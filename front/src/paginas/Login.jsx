@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Input } from "../components/Input";
 import { useNavigate } from "react-router-dom";
 import marteloLeilao from "../assets/leilao-martelo.png";
+import carroLeilao from "../assets/carro.png";
 import AutenticacaoService from "../services/AutenticacaoService";
 
 const Login = () => {
@@ -42,10 +43,10 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-image-wrapper">
-        <img src={marteloLeilao} alt="Martelo de Leilão" className="login-image" />
+        <img src={carroLeilao} alt="Martelo de Leilão" className="login-image" />
       </div>
       <div className="login-box">
-        <h1 className="login-title">Leilão Online</h1>
+        <h1 className="login-title">Leilão Online de Carros</h1>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
           <Input

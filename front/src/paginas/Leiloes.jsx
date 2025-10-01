@@ -1,82 +1,94 @@
-import lamborg from "../assets/lambo.png";
-import zenvo from "../assets/zenvo.png";
-import koenig from "../assets/koenig.jpg"
-import alfa from "../assets/ar.jpg"
-import golf from "../assets/golfao.jpg"
+import whats from "../assets/whatsapp.jpg";
+import mockLeiloes from "../mocks/mockLeiloes"; //
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const mockLeiloes = [
-    {
-      id: 1,
-      veiculo: { nome: "Lamborghini Sián Roadster", imagemUrl: lamborg },
-      lanceInicial: 2200000,
-      compraImediata: 2464000,
-      dataFim: "2025-09-30T23:00:00"
-    },
-    {
-      id: 2,
-      veiculo: { nome: "Zenvo ST1", imagemUrl: zenvo },
-      lanceInicial: 4000000,
-      compraImediata: 5243000,
-      dataFim: "2025-09-30T23:59:00"
-    },
-    {
-        id: 3,
-        veiculo: { nome: "Koenigsegg Jesko ", imagemUrl: koenig },
-        lanceInicial: 1650000,
-        compraImediata: 1900000,
-        dataFim: "2025-10-01T23:59:00"
-      },
-      {
-        id: 4,
-        veiculo: { nome: "Golf GTI ", imagemUrl: golf },
-        lanceInicial: 22000,
-        compraImediata: 31000,
-        dataFim: "2025-10-01T23:59:00"
-      },
-      {
-        id: 5,
-        veiculo: { nome: "Alfa Romeu Guilea", imagemUrl: alfa },
-        lanceInicial: 380000,
-        compraImediata: 500000,
-        dataFim: "2025-10-01T23:59:00"
-      }
-  ];
 
 const Leiloes = () => {
   const [leiloes, setLeiloes] = useState([]);
+  const [busca, setBusca] = useState("");
+  const [categoria, setCategoria] = useState("Todos");
+  const [ordenacao, setOrdenacao] = useState("padrao");
 
   useEffect(() => {
     axios.get("http://localhost:8080/leiloes")
       .then(response => setLeiloes(response.data.content))
       .catch(() => {
-        // se não conseguir pegar do backend, usa mock
         setLeiloes(mockLeiloes);
       });
   }, []);
 
+  // aplica filtros e ordenação
+  const leiloesFiltrados = leiloes
+    .filter(leilao =>
+      leilao.veiculo?.nome.toLowerCase().includes(busca.toLowerCase())
+    )
+    .filter(leilao =>
+      categoria === "Todos" ? true : leilao.veiculo?.categoria === categoria
+    )
+    .sort((a, b) => {
+      if (ordenacao === "preco") return a.lanceInicial - b.lanceInicial;
+      if (ordenacao === "data") return new Date(a.dataFim) - new Date(b.dataFim);
+      return 0;
+    });
+
   return (
-    
     <div className="leiloes-container">
       <h1>Chehade Leilões</h1>
-      <div className="leiloes-lista">
-        {leiloes.map((leilao) => (
-          <div key={leilao.id} className="leilao-card">
-            <img
-              src={leilao.veiculo?.imagemUrl || "/placeholder.jpg"}
-              alt={leilao.veiculo?.nome}
-            />
-            <h2>{leilao.veiculo?.nome}</h2>
-            <p>Lance inicial: R$ {leilao.lanceInicial.toLocaleString()} </p>
-            <p>Compra imediata: R$ {leilao.compraImediata.toLocaleString()}</p>
-            <p>Termina em: {new Date(leilao.dataFim).toLocaleString()}</p>
-            <button>Ver Detalhes</button>
-          </div>
-        ))}
+
+      {/* filtros */}
+      <div className="filtros">
+        <input
+          type="text"
+          placeholder="Buscar veículo..."
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
+        <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+          <option value="Todos">Todas categorias</option>
+          <option value="Supercarro">Supercarro</option>
+          <option value="Hatch">Hatch</option>
+          <option value="Sedan">Sedan</option>
+        </select>
+        <select value={ordenacao} onChange={(e) => setOrdenacao(e.target.value)}>
+          <option value="padrao">Ordenar por</option>
+          <option value="preco">Menor preço inicial</option>
+          <option value="data">Termina antes</option>
+        </select>
       </div>
+
+      {/* lista */}
+      <div className="leiloes-lista">
+        {leiloesFiltrados.length === 0 ? (
+          <p className="sem-resultados">Nenhum leilão encontrado 🚧</p>
+        ) : (
+          leiloesFiltrados.map((leilao) => (
+            <div key={leilao.id} className="leilao-card">
+              <img
+                src={leilao.veiculo?.imagemUrl || "/placeholder.jpg"}
+                alt={leilao.veiculo?.nome}
+              />
+              <h2>{leilao.veiculo?.nome}</h2>
+              <p>Lance inicial: R$ {leilao.lanceInicial.toLocaleString()} </p>
+              <p>Compra imediata: R$ {leilao.compraImediata.toLocaleString()}</p>
+              <p>Termina em: {new Date(leilao.dataFim).toLocaleString()}</p>
+              <button>Ver Detalhes</button>
+            </div>
+          ))
+        )}
+      </div>
+      <a
+  href="https://wa.me/5544998705279"
+  className="whatsapp-button"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <img src={whats} alt="WhatsApp" />
+</a>
     </div>
+    
   );
+  
 };
 
 export default Leiloes;

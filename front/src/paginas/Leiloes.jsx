@@ -2,6 +2,7 @@ import whats from "../assets/whatsapp.jpg";
 import mockLeiloes from "../mocks/mockLeiloes"; //
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 
 const Leiloes = () => {
@@ -9,6 +10,7 @@ const Leiloes = () => {
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("Todos");
   const [ordenacao, setOrdenacao] = useState("padrao");
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get("http://localhost:8080/leiloes")
@@ -17,6 +19,12 @@ const Leiloes = () => {
         setLeiloes(mockLeiloes);
       });
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("usuario");
+    navigate("/login");
+  };
 
   // aplica filtros e ordenação
   const leiloesFiltrados = leiloes
@@ -34,7 +42,13 @@ const Leiloes = () => {
 
   return (
     <div className="leiloes-container">
-      <h1>Chehade Leilões</h1>
+  <header className="leiloes-header">
+    <h1>Chehade Leilões</h1>
+    <button onClick={handleLogout} className="logout-button">
+      Sair
+    </button>
+  </header>
+
 
       {/* filtros */}
       <div className="filtros">

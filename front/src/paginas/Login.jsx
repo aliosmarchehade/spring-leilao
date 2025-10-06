@@ -25,7 +25,7 @@ const Login = () => {
         }
 
         // Você pode salvar os dados do usuário também, se precisar
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("usuario", JSON.stringify(userData));
 
         navigate("/dashboard");
       } else {

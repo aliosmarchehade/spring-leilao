@@ -40,27 +40,7 @@ const mockLeiloes = [
     compraImediata: 500000,
     dataFim: "2025-10-01T23:59:00"
   },
-  {
-    id: 5,
-    veiculo: { nome: "Alfa Romeu Guilea", imagemUrl: alfa, categoria: "Sedan" },
-    lanceInicial: 380000,
-    compraImediata: 500000,
-    dataFim: "2025-10-01T23:59:00"
-  },
-  {
-    id: 5,
-    veiculo: { nome: "Alfa Romeu Guilea", imagemUrl: alfa, categoria: "Sedan" },
-    lanceInicial: 380000,
-    compraImediata: 500000,
-    dataFim: "2025-10-01T23:59:00"
-  },
-  {
-    id: 5,
-    veiculo: { nome: "Alfa Romeu Guilea", imagemUrl: alfa, categoria: "Sedan" },
-    lanceInicial: 380000,
-    compraImediata: 500000,
-    dataFim: "2025-10-01T23:59:00"
-  },
+  
   
 ];
 

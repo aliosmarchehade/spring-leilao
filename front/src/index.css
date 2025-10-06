@@ -446,3 +446,68 @@ body {
   transform: scale(1.1);
   box-shadow: 0 6px 220px rgba(37, 211, 102, 0.6);
 }
+/* ==== HEADER DO DASHBOARD ==== */
+.leiloes-header {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza tudo horizontalmente */
+  position: relative; /* permite posicionar o botão à direita */
+  padding: 25px 200px 10px 200px;
+  z-index: 2;
+}
+
+/* título centralizado */
+.leiloes-header h1 {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-align: center;
+  margin: 0 auto; /* garante centralização mesmo com o botão ao lado */
+  background: linear-gradient(90deg, #ff0080, #f700ff, #ffff00, #00ff88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  text-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+}
+
+/* botão fixo na direita do header */
+.logout-button {
+  position: absolute;
+  right: -150px; /* mesma margem lateral do container */
+  top: 50%;
+  transform: translateY(-50%);
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  transform: translateY(-50%) scale(1.05);
+  background: linear-gradient(90deg, #ff008c, #ffa100);
+  box-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+}
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+  .leiloes-header {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .logout-button {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 25px;
+  }
+}

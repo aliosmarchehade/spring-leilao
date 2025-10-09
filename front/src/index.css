@@ -473,9 +473,9 @@ body {
 
 /* botão fixo na direita do header */
 .logout-button {
-  position: absolute;
-  right: -150px; /* mesma margem lateral do container */
-  top: 50%;
+  position: static;
+  right: 50px; /* mesma margem lateral do container */
+  top: 10%;
   transform: translateY(-50%);
   background: linear-gradient(90deg, #ff0080, #ff8c00);
   border: none;
@@ -511,3 +511,81 @@ body {
     margin-top: 25px;
   }
 }
+/* Dropdown container (envolve o botão) */
+.dropdown {
+  position: absolute;
+  right: -150px; /* mesma posição que seu botão atual */
+  top: 70%;
+  transform: translateY(-50%);
+}
+
+/* Botão principal mantém seu estilo atual */
+.dropdown .logout-button {
+  background: linear-gradient(90deg, #ff0080, #ff8c00);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.5);
+  transition: all 0.3s ease;
+}
+
+/* Dropdown content (invisível por padrão) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-top: 0px;
+  background-color: #1f1f2e;
+  min-width: 150px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+  z-index: 10;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Botões do dropdown */
+.dropdown-content button {
+  background: none;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  text-align: left;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+/* Hover nos botões do dropdown */
+.dropdown-content button:hover {
+  background: #772a77;
+}
+
+/* Mostrar dropdown ao passar o mouse */
+.dropdown:hover .dropdown-content {
+  display: flex;
+}
+
+/* Ajuste mobile */
+@media (max-width: 768px) {
+  .dropdown {
+    position: static;
+    transform: none;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  .dropdown-content {
+    position: static;
+    width: 100%;
+    margin-top: 5px;
+    flex-direction: column;
+  }
+}
+

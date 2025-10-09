@@ -6,6 +6,7 @@ import Recuperar from "./paginas/Recuperar";
 import Leiloes from "./paginas/Leiloes";
 import RotaPrivadaLayout from "./components/layout/RotaPrivadaLayout";
 import { fakeUsers } from "./data/usuarios";
+import MinhaConta from "./paginas/MinhaConta";
 
 if (!localStorage.getItem("fakeUsers")) {
   localStorage.setItem("fakeUsers", JSON.stringify(fakeUsers));
@@ -22,6 +23,7 @@ const App = () => {
         {/* Rota privada */}
         <Route element={<RotaPrivadaLayout />}>
           <Route path="/dashboard" element={<Leiloes />} />
+          <Route path="/conta" element={<MinhaConta/>} /> 
         </Route>
 
         {/* Redirecionamento padrão */}

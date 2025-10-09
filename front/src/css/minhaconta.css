@@ -1,0 +1,69 @@
+.minha-conta-container {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(185, 106, 106, 0.1);
+    background-color: #d9d9d9;
+    text-align: center;
+  }
+
+.minha-conta-container h1{
+    color: black;
+    
+}
+  
+  .usuario-info p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
+    color: black;
+  }
+  
+  .conta-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .conta-actions button {
+    padding: 0.5rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+  }
+  .botaovoltar button{
+    padding: 0.5rem 1.5rem;
+  }
+  
+  .conta-actions button:first-child {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .conta-actions button:last-child {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  .minha-conta-page {
+    position: relative;
+    padding: 2rem; /* dá um espaço interno para não colar na borda da tela */
+  }
+  
+  .botaovoltar {
+    position: absolute;
+    top: 2rem;
+    left: 3rem;
+  }
+  
+  .botaovoltar button {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    background-color: #b40680; /* cor cinza */
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  

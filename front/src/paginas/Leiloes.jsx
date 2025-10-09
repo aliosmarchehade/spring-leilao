@@ -20,6 +20,11 @@ const Leiloes = () => {
       });
   }, []);
 
+
+  const handleMinhaConta = () => {
+    navigate("/conta")
+  }
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
@@ -43,12 +48,16 @@ const Leiloes = () => {
   return (
     <div className="leiloes-container">
   <header className="leiloes-header">
-    <h1>Chehade Leilões</h1>
-    <button onClick={handleLogout} className="logout-button">
-      Sair
-    </button>
-  </header>
+  <h1>Chehade Leilões</h1>
 
+  <div className="dropdown">
+    <button className="logout-button">Minha Conta ⌄</button>
+    <div className="dropdown-content">
+      <button onClick={handleMinhaConta}>Acessar Conta</button>
+      <button onClick={handleLogout}>Sair</button>
+    </div>
+  </div>
+</header>
 
       {/* filtros */}
       <div className="filtros">

@@ -28,12 +28,22 @@ public class AutenticacaoService {
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(pessoa.getEmail(), pessoa.getSenha())
         );
-        Pessoa pessoaBanco = pessoaRepository.findByEmail(pessoa.getEmail()).get();
+        
+        Pessoa pessoaBanco = pessoaRepository.findByEmail(pessoa.getEmail())
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        // Pega o nome do primeiro perfil vinculado à pessoa (ex: ADMIN)
+        String tipoPerfil = pessoaBanco.getPessoaPerfil()
+            .stream()
+            .findFirst()
+            .map(pp -> pp.getPerfil().getNome())
+            .orElse("USER");
 
         PessoaAutenticacaoDTO autenticacaoDTO = new PessoaAutenticacaoDTO();
         autenticacaoDTO.setEmail(pessoaBanco.getEmail());
         autenticacaoDTO.setNome(pessoaBanco.getNome());
         autenticacaoDTO.setToken(jwtService.generateToken(authentication.getName()));
+        autenticacaoDTO.setTipoPerfil(tipoPerfil); // 👈 adicionando aqui
 
         return autenticacaoDTO;
     }

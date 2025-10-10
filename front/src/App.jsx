@@ -7,6 +7,7 @@ import Leiloes from "./paginas/Leiloes";
 import RotaPrivadaLayout from "./components/layout/RotaPrivadaLayout";
 import { fakeUsers } from "./data/usuarios";
 import MinhaConta from "./paginas/MinhaConta";
+import AdminVeiculos from "./paginas/AdminVeiculos"; 
 
 if (!localStorage.getItem("fakeUsers")) {
   localStorage.setItem("fakeUsers", JSON.stringify(fakeUsers));
@@ -24,6 +25,7 @@ const App = () => {
         <Route element={<RotaPrivadaLayout />}>
           <Route path="/dashboard" element={<Leiloes />} />
           <Route path="/conta" element={<MinhaConta/>} /> 
+          <Route path="/admin/veiculos" element={<AdminVeiculos />} />
         </Route>
 
         {/* Redirecionamento padrão */}

@@ -7,4 +7,5 @@ public class PessoaAutenticacaoDTO {
     private String nome;
     private String email;
     private String token;
+    private String tipoPerfil;
 }

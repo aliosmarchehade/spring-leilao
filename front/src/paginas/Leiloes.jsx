@@ -22,8 +22,25 @@ const Leiloes = () => {
 
 
   const handleMinhaConta = () => {
-    navigate("/conta")
-  }
+    const usuario = JSON.parse(localStorage.getItem("usuario"));
+  
+    if (!usuario) {
+      navigate("/login");
+      return;
+    }
+  
+    switch (usuario.tipoPerfil) {
+      case "ADMIN":
+        navigate("/admin/veiculos"); // nova página que você vai criar
+        break;
+      case "LEILOEIRO":
+        navigate("/conta");
+        break;
+      default:
+        navigate("/conta"); // ou outra página para comprador
+    }
+  };
+  
 
   const handleLogout = () => {
     localStorage.removeItem("token");

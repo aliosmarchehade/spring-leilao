@@ -29,6 +29,7 @@ public class CategoriaService {
     public Categoria alterar(Categoria categoria) {
         Categoria categoriaBanco = buscarPorId(categoria.getId());
         categoriaBanco.setNome(categoria.getNome());
+        categoriaBanco.setObservacao(categoria.getObservacao());
 
         return categoriaRepository.save(categoriaBanco);
     }

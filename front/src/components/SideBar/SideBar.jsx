@@ -6,12 +6,11 @@ import "./Sidebar.css";
 
 import { Car, Gear, CaretDoubleRight, CaretDoubleLeft, SignOut, SteeringWheel, CarProfile, Palette, Engine, Speedometer } from '@phosphor-icons/react';
 import { ListBullets } from '@phosphor-icons/react/dist/ssr';
-import { Fuel } from 'lucide-react';
+
 import { useAuth } from '../../hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
 export default function AppSidebar({ children }) {
     const [collapsed, setCollapsed] = useState(false);
-    const { user, logout } = useAuth()
     const location = useLocation();
     const navigateTo = useNavigate()
     const navigate = (path) => {
@@ -21,9 +20,9 @@ export default function AppSidebar({ children }) {
     const isActive = (path) => location.pathname.includes(path);
 
     const menuItems = [
-        { label: collapsed ? '' : `Olá Admin    `, icon: <Speedometer weight='fill' size={collapsed ? 27 : 25} color={isActive('/admin/dashboard') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/dashboard') },
+        { label: collapsed ? '' : `Olá Admin    `, icon: <Speedometer weight='fill' size={collapsed ? 27 : 25} color={isActive('/admin/veiculos') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/veiculos') },
         { label: collapsed ? '' : 'Carros', icon: <CarProfile weight='fill' size={collapsed ? 27 : 25} color={isActive('/admin/cars') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/cars') },
-        { label: collapsed ? '' : 'Categoria', icon: <SteeringWheel weight='fill' size={collapsed ? 25 : 25} color={isActive('/admin/colors') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/colors') },
+        { label: collapsed ? '' : 'Categoria', icon: <SteeringWheel weight='fill' size={collapsed ? 25 : 25} color={isActive('/admin/categoria') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/categoria') },
 
     ];
     
@@ -34,6 +33,7 @@ export default function AppSidebar({ children }) {
                 visible={true}
                 onHide={() => { }}
                 className='main-content'
+                modal={false}   
                 style={{
                     width: collapsed ? '60px' : '15rem',
                     transition: 'width 0.3s',

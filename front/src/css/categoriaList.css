@@ -1,0 +1,140 @@
+.categoria-container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #570e53;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Conteúdo principal */
+  .categoria-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #d9d9d9;
+    border-radius: 12px;
+    margin: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Top bar */
+  .categoria-top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+  }
+  
+  .categoria-top-bar h2 {
+    color: #000000;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+  
+  .btn-add {
+    background-color: #155633;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 500;
+  }
+  
+  .btn-add:hover {
+    background-color: #0f4027;
+  }
+  
+  /* Tabela */
+  .categoria-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .categoria-table thead {
+    background-color: #155633;
+    color: white;
+    text-align: left;
+  }
+  
+  .categoria-table th,
+  .categoria-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #000000;
+  }
+
+  /* cor dos textos */ 
+  .categoria-table tbody td {
+    color: #000000;
+  }
+  
+  .categoria-table tbody tr:hover {
+    background-color: #a2d6 8e;
+  }
+  
+  .no-data {
+    text-align: center;
+    color: #666;
+    padding: 20px 0;
+  }
+  
+  /* Botões de ação */
+  .btn-edit,
+  .btn-delete {
+    border: none;
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-right: 8px;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  .btn-edit {
+    background-color: #1a73e8;
+    color: white;
+  }
+  
+  .btn-edit:hover {
+    background-color: #155cb0;
+    transform: scale(1.03);
+  }
+  
+  .btn-delete {
+    background-color: #e63946;
+    color: white;
+  }
+  
+  .btn-delete:hover {
+    background-color: #c62828;
+    transform: scale(1.03);
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .categoria-content {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  
+    .categoria-table th,
+    .categoria-table td {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    .btn-add {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
+  
+    .categoria-top-bar h2 {
+      font-size: 1.2rem;
+    }
+  }
+  

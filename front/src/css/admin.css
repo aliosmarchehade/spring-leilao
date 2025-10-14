@@ -1,5 +1,6 @@
 .admin-container{
     max-width: 600px;
+    height: 100px;
     margin: 2rem auto;
     padding: 2rem;
     border-radius: 12px;

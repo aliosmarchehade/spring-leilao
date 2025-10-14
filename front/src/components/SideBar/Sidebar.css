@@ -1,0 +1,142 @@
+.header-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0;
+}
+
+.button-header {
+    display: flex;
+    width: 22rem;
+    height: 2.5rem;
+    padding: 13px 61px;
+    border-radius: 3px;
+    box-shadow: 0px 8px 12px 6px rgba(0, 0, 0, 0.15), 0px 4px 4px 0px rgba(0, 0, 0, 0.30);
+    background: #1D1D1D;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    border: none;
+    font-family: Alexandria;
+
+}
+
+.content-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.menu-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.p-sidebar {
+    background-color: #2b0728 !important;
+    border: none !important;
+    transition: width 0.3s !important;
+}
+
+.p-sidebar .p-menuitem {
+    background-color: transparent !important;
+    width: 100%;
+    text-align: center;
+}
+
+.p-sidebar .p-menuitem-link {
+    font-family: Alexandria;
+
+    color: #380505 !important;
+    padding: 1.2rem 1rem !important;
+    font-size: 0.9rem !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    width: 100%;
+    gap: 0.5rem !important;
+}
+
+.p-sidebar .p-menuitem-link:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.p-sidebar .p-menuitem-content svg {
+    color: #ffffff !important;
+    margin: 0 !important;
+    flex-shrink: 0;
+}
+
+.p-menuitem-text {
+    color: #FFF;
+    font-family: Alexandria;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+.p-sidebar .p-button-text {
+    color: #ffffff !important;
+    width: 100%;
+    text-align: center;
+    font-family: Alexandria;
+    font-size: 24px;
+}
+
+.p-sidebar .p-button-text svg {
+    color: #ffffff !important;
+    margin: 0 !important;
+}
+
+.p-sidebar .p-button-text:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+.img-logo-side-bar {
+    width: 10rem !important;
+    transition: opacity 0.3s;
+}
+
+.img-logo-side-bar.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.toggle-button {
+    border: none;
+    background-color: #1e1e1e;
+    border-radius: 50%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-button {
+    background-color: transparent !important;
+    border: none !important;
+    color: #ffffff !important;
+    font-size: 0.9rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center;
+    width: 100%;
+    font-family: Alexandria;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+
+}

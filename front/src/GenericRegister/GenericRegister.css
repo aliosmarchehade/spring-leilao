@@ -1,0 +1,116 @@
+.header-cad {
+    margin-bottom: 20px;
+  }
+  
+  .text-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #444;
+  }
+  
+  .title-page .title {
+    font-size: 1.8rem;
+    color: #333;
+    font-weight: 700;
+  }
+  
+  .back-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #222;
+    margin-bottom: 1rem;
+  }
+  
+  .generic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .generic-form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  .border-red {
+    border-color: red !important;
+  }
+  
+  .label-form {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .radios {
+    margin-top: 1rem;
+  }
+  
+  .radio-buttons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .required {
+    color: red;
+    font-weight: bold;
+  }
+  
+  .form-action {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  .btn-generic {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 8px;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s ease;
+  }
+  
+  .btn-save {
+    background-color: #3f8f3f;
+  }
+  
+  .btn-cancel {
+    background-color: #8f3f3f;
+  }
+  
+  .btn-clean {
+    background-color: #3f6f8f;
+  }
+  
+  .btn-generic:hover {
+    opacity: 0.9;
+  }
+  
+  .error {
+    color: red;
+    font-size: 0.9rem;
+  }
+  
+  .error-message {
+    color: red;
+    font-size: 0.9rem;
+  }
+  

@@ -1,25 +1,36 @@
 import whats from "../assets/whatsapp.jpg";
-import mockLeiloes from "../mocks/mockLeiloes"; //
+import mockLeiloes from "../mocks/mockLeiloes";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 const Leiloes = () => {
   const [leiloes, setLeiloes] = useState([]);
+  const [categorias, setCategorias] = useState([]);
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("Todos");
   const [ordenacao, setOrdenacao] = useState("padrao");
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Buscar leilões
     axios.get("http://localhost:8080/leiloes")
       .then(response => setLeiloes(response.data.content))
       .catch(() => {
         setLeiloes(mockLeiloes);
       });
-  }, []);
 
+    // Buscar categorias da API
+    axios.get("http://localhost:8080/categoria?size=100")
+      .then(response => {
+        const categoriasAPI = response.data.content || [];
+        setCategorias(categoriasAPI);
+      })
+      .catch(error => {
+        console.error("Erro ao buscar categorias:", error);
+        setCategorias([]);
+      });
+  }, []);
 
   const handleMinhaConta = () => {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
@@ -31,22 +42,37 @@ const Leiloes = () => {
   
     switch (usuario.tipoPerfil) {
       case "ADMIN":
-        navigate("/admin/veiculos"); // nova página que você vai criar
+        navigate("/admin/veiculos");
         break;
       case "LEILOEIRO":
         navigate("/conta");
         break;
       default:
-        navigate("/conta"); // ou outra página para comprador
+        navigate("/conta");
     }
   };
-  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("usuario");
     navigate("/login");
   };
+
+  // Categorias fixas + categorias da API
+  const categoriasFixas = [
+    { id: "Todos", nome: "Todas categorias" },
+    { id: "Supercarro", nome: "Supercarro" },
+    { id: "Hatch", nome: "Hatch" },
+    { id: "Sedan", nome: "Sedan" }
+  ];
+
+  // Combinar categorias fixas com categorias da API, removendo duplicatas
+  const todasCategorias = [
+    ...categoriasFixas,
+    ...categorias
+      .filter(cat => !categoriasFixas.some(fixa => fixa.id === cat.id || fixa.nome === cat.nome))
+      .map(cat => ({ id: cat.nome, nome: cat.nome }))
+  ];
 
   // aplica filtros e ordenação
   const leiloesFiltrados = leiloes
@@ -64,17 +90,17 @@ const Leiloes = () => {
 
   return (
     <div className="leiloes-container">
-  <header className="leiloes-header">
-  <h1>Chehade Leilões</h1>
+      <header className="leiloes-header">
+        <h1>Chehade Leilões</h1>
 
-  <div className="dropdown">
-    <button className="logout-button">Minha Conta ⌄</button>
-    <div className="dropdown-content">
-      <button onClick={handleMinhaConta}>Acessar Conta</button>
-      <button onClick={handleLogout}>Sair</button>
-    </div>
-  </div>
-</header>
+        <div className="dropdown">
+          <button className="logout-button">Minha Conta ⌄</button>
+          <div className="dropdown-content">
+            <button onClick={handleMinhaConta}>Acessar Conta</button>
+            <button onClick={handleLogout}>Sair</button>
+          </div>
+        </div>
+      </header>
 
       {/* filtros */}
       <div className="filtros">
@@ -85,10 +111,11 @@ const Leiloes = () => {
           onChange={(e) => setBusca(e.target.value)}
         />
         <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
-          <option value="Todos">Todas categorias</option>
-          <option value="Supercarro">Supercarro</option>
-          <option value="Hatch">Hatch</option>
-          <option value="Sedan">Sedan</option>
+          {todasCategorias.map((cat) => (
+            <option key={cat.id} value={cat.id}>
+              {cat.nome}
+            </option>
+          ))}
         </select>
         <select value={ordenacao} onChange={(e) => setOrdenacao(e.target.value)}>
           <option value="padrao">Ordenar por</option>
@@ -118,17 +145,15 @@ const Leiloes = () => {
         )}
       </div>
       <a
-  href="https://wa.me/5544998705279"
-  className="whatsapp-button"
-  target="_blank"
-  rel="noopener noreferrer"
->
-  <img src={whats} alt="WhatsApp" />
-</a>
+        href="https://wa.me/5544998705279"
+        className="whatsapp-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src={whats} alt="WhatsApp" />
+      </a>
     </div>
-    
   );
-  
 };
 
 export default Leiloes;

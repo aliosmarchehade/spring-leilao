@@ -26,7 +26,7 @@
   
   /* Botão Voltar */
   .categoria-form-btn-voltar {
-    background-color: #777;
+    background-color: #490707;
     color: white;
     border: none;
     border-radius: 6px;
@@ -36,7 +36,7 @@
     transition: background 0.3s;
   }
   .categoria-form-btn-voltar:hover {
-    background-color: #555;
+    background-color: #df4141;
   }
   
   /* Formulário */

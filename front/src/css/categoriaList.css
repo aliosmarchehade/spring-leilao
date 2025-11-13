@@ -32,7 +32,7 @@
   }
   
   .btn-add {
-    background-color: #155633;
+    background-color: #861570;
     color: white;
     border: none;
     border-radius: 8px;
@@ -43,7 +43,7 @@
   }
   
   .btn-add:hover {
-    background-color: #0f4027;
+    background-color: #ce2cae;
   }
   
   /* Tabela */
@@ -57,7 +57,7 @@
   }
   
   .categoria-table thead {
-    background-color: #155633;
+    background-color: #310528;
     color: white;
     text-align: left;
   }

@@ -39,6 +39,9 @@ const App = () => {
           {/* 🆕 Rotas de Categoria */}
           <Route path="/admin/categoria" element={<CategoriaList />} />
           <Route path="/admin/categoria/form" element={<CategoriaForm />} />
+
+          {/* 🆕 Rotas de Carro */}
+          <Route path="/admin/carros" element={<CategoriaList />} />
         </Route>
 
         {/* Redirecionamento padrão */}

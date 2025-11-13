@@ -32,7 +32,6 @@ public class AutenticacaoService {
         Pessoa pessoaBanco = pessoaRepository.findByEmail(pessoa.getEmail())
             .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        // Pega o nome do primeiro perfil vinculado à pessoa (ex: ADMIN)
         String tipoPerfil = pessoaBanco.getPessoaPerfil()
             .stream()
             .findFirst()
@@ -40,10 +39,11 @@ public class AutenticacaoService {
             .orElse("USER");
 
         PessoaAutenticacaoDTO autenticacaoDTO = new PessoaAutenticacaoDTO();
+        autenticacaoDTO.setId(pessoaBanco.getId()); // 👈 adicionada
         autenticacaoDTO.setEmail(pessoaBanco.getEmail());
         autenticacaoDTO.setNome(pessoaBanco.getNome());
         autenticacaoDTO.setToken(jwtService.generateToken(authentication.getName()));
-        autenticacaoDTO.setTipoPerfil(tipoPerfil); // 👈 adicionando aqui
+        autenticacaoDTO.setTipoPerfil(tipoPerfil);
 
         return autenticacaoDTO;
     }

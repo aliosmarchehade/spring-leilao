@@ -23,7 +23,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableMethodSecurity(prePostEnabled = true)
 public class ConfiguracaoSeguranca {
 
-  
     private final JwtFiltroAutenticacao jwtRequestFilter;
 
     public ConfiguracaoSeguranca(JwtFiltroAutenticacao jwtRequestFilter) {
@@ -42,38 +41,49 @@ public class ConfiguracaoSeguranca {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        http
+            .csrf(csrf -> csrf.disable())
+            .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/autenticacao/**").permitAll()
-            .requestMatchers("/categoria/**").permitAll()
-            .requestMatchers("/perfil").permitAll()
-            .requestMatchers("/pessoa").permitAll()
-            .requestMatchers("/lance**").permitAll()
-            .requestMatchers("/leilao/public").permitAll()
-            .requestMatchers("/pessoa/recuperar-senha").permitAll()
-            .requestMatchers("/pessoa/alterar-senha-codigo").permitAll()
-            /* .requestMatchers("/api/pessoa/**").hasRole("ADMIN") */
+
+                // Rotas públicas
+                .requestMatchers("/autenticacao/**").permitAll()
+                .requestMatchers("/categoria/**").permitAll()
+                .requestMatchers("/perfil").permitAll()
+                .requestMatchers("/pessoa").permitAll()
+                .requestMatchers("/pessoa/recuperar-senha").permitAll()
+                .requestMatchers("/pessoa/alterar-senha-codigo").permitAll()
+                .requestMatchers("/leilao/public").permitAll()
+                .requestMatchers("/lance**").permitAll()
+                .requestMatchers("/logs/**").permitAll()
+
+                // ✅ Libera visualização pública dos leilões
+                .requestMatchers("/leiloes/**").permitAll()
+
+                // (Opcional) Endpoints administrativos — só ADMIN
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                // Tudo o mais exige login
                 .anyRequest().authenticated()
             )
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
 
-        @Bean
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
+
+        // 🔓 Ajusta para aceitar o front local
         configuration.setAllowedOrigins(List.of("http://localhost:3000"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type")); 
-        configuration.setAllowCredentials(true); 
+        configuration.setAllowedHeaders(List.of("*")); // aceita qualquer header
+        configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); 
+        source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }

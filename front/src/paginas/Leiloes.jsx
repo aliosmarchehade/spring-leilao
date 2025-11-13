@@ -1,8 +1,8 @@
 import whats from "../assets/whatsapp.jpg";
 import mockLeiloes from "../mocks/mockLeiloes";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import api from "../configs/axiosConfig";
 
 const Leiloes = () => {
   const [leiloes, setLeiloes] = useState([]);
@@ -13,20 +13,21 @@ const Leiloes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Buscar leilões
-    axios.get("http://localhost:8080/leiloes")
-      .then(response => setLeiloes(response.data.content))
-      .catch(() => {
-        setLeiloes(mockLeiloes);
+    // ✅ Buscar leilões com autenticação via axiosConfig
+    api.get("/leiloes")
+      .then((response) => setLeiloes(response.data.content))
+      .catch((error) => {
+        console.error("Erro ao buscar leilões:", error);
+        setLeiloes(mockLeiloes); // fallback local se der erro
       });
 
-    // Buscar categorias da API
-    axios.get("http://localhost:8080/categoria?size=100")
-      .then(response => {
+    // ✅ Buscar categorias da API
+    api.get("/categoria?size=100")
+      .then((response) => {
         const categoriasAPI = response.data.content || [];
         setCategorias(categoriasAPI);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("Erro ao buscar categorias:", error);
         setCategorias([]);
       });
@@ -34,12 +35,12 @@ const Leiloes = () => {
 
   const handleMinhaConta = () => {
     const usuario = JSON.parse(localStorage.getItem("usuario"));
-  
+
     if (!usuario) {
       navigate("/login");
       return;
     }
-  
+
     switch (usuario.tipoPerfil) {
       case "ADMIN":
         navigate("/admin/veiculos");
@@ -63,28 +64,34 @@ const Leiloes = () => {
     { id: "Todos", nome: "Todas categorias" },
     { id: "Supercarro", nome: "Supercarro" },
     { id: "Hatch", nome: "Hatch" },
-    { id: "Sedan", nome: "Sedan" }
+    { id: "Sedan", nome: "Sedan" },
   ];
 
   // Combinar categorias fixas com categorias da API, removendo duplicatas
   const todasCategorias = [
     ...categoriasFixas,
     ...categorias
-      .filter(cat => !categoriasFixas.some(fixa => fixa.id === cat.id || fixa.nome === cat.nome))
-      .map(cat => ({ id: cat.nome, nome: cat.nome }))
+      .filter(
+        (cat) =>
+          !categoriasFixas.some(
+            (fixa) => fixa.id === cat.id || fixa.nome === cat.nome
+          )
+      )
+      .map((cat) => ({ id: cat.nome, nome: cat.nome })),
   ];
 
-  // aplica filtros e ordenação
+  // Filtro e ordenação
   const leiloesFiltrados = leiloes
-    .filter(leilao =>
+    .filter((leilao) =>
       leilao.veiculo?.nome.toLowerCase().includes(busca.toLowerCase())
     )
-    .filter(leilao =>
+    .filter((leilao) =>
       categoria === "Todos" ? true : leilao.veiculo?.categoria === categoria
     )
     .sort((a, b) => {
       if (ordenacao === "preco") return a.lanceInicial - b.lanceInicial;
-      if (ordenacao === "data") return new Date(a.dataFim) - new Date(b.dataFim);
+      if (ordenacao === "data")
+        return new Date(a.dataFim) - new Date(b.dataFim);
       return 0;
     });
 
@@ -110,14 +117,20 @@ const Leiloes = () => {
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
-        <select value={categoria} onChange={(e) => setCategoria(e.target.value)}>
+        <select
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
+        >
           {todasCategorias.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.nome}
             </option>
           ))}
         </select>
-        <select value={ordenacao} onChange={(e) => setOrdenacao(e.target.value)}>
+        <select
+          value={ordenacao}
+          onChange={(e) => setOrdenacao(e.target.value)}
+        >
           <option value="padrao">Ordenar por</option>
           <option value="preco">Menor preço inicial</option>
           <option value="data">Termina antes</option>
@@ -137,13 +150,16 @@ const Leiloes = () => {
               />
               <h2>{leilao.veiculo?.nome}</h2>
               <p>Lance inicial: R$ {leilao.lanceInicial.toLocaleString()} </p>
-              <p>Compra imediata: R$ {leilao.compraImediata.toLocaleString()}</p>
+              <p>
+                Compra imediata: R$ {leilao.compraImediata.toLocaleString()}
+              </p>
               <p>Termina em: {new Date(leilao.dataFim).toLocaleString()}</p>
               <button>Ver Detalhes</button>
             </div>
           ))
         )}
       </div>
+
       <a
         href="https://wa.me/5544998705279"
         className="whatsapp-button"

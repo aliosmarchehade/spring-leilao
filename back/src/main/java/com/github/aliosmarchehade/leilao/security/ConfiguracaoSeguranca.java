@@ -56,6 +56,7 @@ public class ConfiguracaoSeguranca {
                 .requestMatchers("/leilao/public").permitAll()
                 .requestMatchers("/lance**").permitAll()
                 .requestMatchers("/logs/**").permitAll()
+                .requestMatchers("/leilao/**").permitAll()
 
                 // ✅ Libera visualização pública dos leilões
                 .requestMatchers("/leiloes/**").permitAll()

@@ -15,6 +15,8 @@ import GenericRegisterLeilao from "./GenericRegister/GenericRegister";
 // 🆕 Importando as páginas de Categoria
 import CategoriaList from "./paginas/CategoriaList";
 import CategoriaForm from "./paginas/CategoriaForm";
+import AuctionList from "./paginas/AuctionList";
+import AuctionForm from "./paginas/AuctionForm";
 
 if (!localStorage.getItem("fakeUsers")) {
   localStorage.setItem("fakeUsers", JSON.stringify(fakeUsers));
@@ -41,8 +43,12 @@ const App = () => {
           <Route path="/admin/categoria/form" element={<CategoriaForm />} />
 
           {/* 🆕 Rotas de Carro */}
-          <Route path="/admin/carros" element={<CategoriaList />} />
+          <Route path="/admin/carros" element={<AuctionList />} />
         </Route>
+
+         {/* 🆕 Rotas de Carro */}
+          <Route path="/admin/carros/form" element={<AuctionForm />} />
+        
 
         {/* Redirecionamento padrão */}
         <Route path="*" element={<Login />} />

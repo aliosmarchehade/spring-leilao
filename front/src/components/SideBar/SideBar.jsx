@@ -26,7 +26,7 @@ export default function AppSidebar({ children }) {
 
     const menuItems = [
         { label: collapsed ? '' : `Olá Admin    `, icon: <Speedometer weight='fill' size={collapsed ? 27 : 25} color={isActive('/admin/veiculos') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/veiculos') },
-        { label: collapsed ? '' : 'Carros', icon: <CarProfile weight='fill' size={collapsed ? 27 : 25} color={isActive('/admin/carros') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/carros') },
+        { label: collapsed ? '' : 'Leilão', icon: <CarProfile weight='fill' size={collapsed ? 27 : 25} color={isActive('/admin/carros') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/carros') },
         { label: collapsed ? '' : 'Categoria', icon: <SteeringWheel weight='fill' size={collapsed ? 25 : 25} color={isActive('/admin/categoria') ? "#155633" : "white"} />, className: 'text-white', command: () => navigate('/categoria') },
         { label: collapsed ? '' : 'Voltar', icon: <KeyReturn weight='fill' size={collapsed ? 25 : 25} color={isActive('/dashboard') ? "#155633" : "red"} />, className: 'text-green', command: () => navigate('/dashboard') },
 

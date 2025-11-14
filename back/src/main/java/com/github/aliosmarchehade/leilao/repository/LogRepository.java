@@ -9,5 +9,5 @@ import com.github.aliosmarchehade.leilao.model.LogEvento;
 
 @Repository
 public interface LogRepository extends JpaRepository<LogEvento, Long> {
-    List<LogEvento> findByUsuarioId(Long usuarioId);
+    List<LogEvento> findByUsuarioIdOrderByDataHoraDesc(Long usuarioId);
 }

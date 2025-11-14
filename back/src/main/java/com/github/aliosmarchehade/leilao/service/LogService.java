@@ -20,7 +20,7 @@ public class LogService {
     }
 
     public List<LogEvento> buscarPorUsuario(Long usuarioId) {
-        return logRepository.findByUsuarioId(usuarioId);
+        return logRepository.findByUsuarioIdOrderByDataHoraDesc(usuarioId);
     }
 
     public LogEvento inserir(LogEvento log) {

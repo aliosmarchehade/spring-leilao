@@ -1,5 +1,4 @@
 import whats from "../assets/whatsapp.jpg";
-import mockLeiloes from "../mocks/mockLeiloes";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../configs/axiosConfig";
@@ -12,86 +11,51 @@ const Leiloes = () => {
   const [ordenacao, setOrdenacao] = useState("padrao");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // ✅ Buscar leilões com autenticação via axiosConfig
-    api.get("/leiloes")
-      .then((response) => setLeiloes(response.data.content))
-      .catch((error) => {
-        console.error("Erro ao buscar leilões:", error);
-        setLeiloes(mockLeiloes); // fallback local se der erro
-      });
+  // Recupera usuário logado
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
 
-    // ✅ Buscar categorias da API
-    api.get("/categoria?size=100")
-      .then((response) => {
-        const categoriasAPI = response.data.content || [];
-        setCategorias(categoriasAPI);
-      })
-      .catch((error) => {
-        console.error("Erro ao buscar categorias:", error);
-        setCategorias([]);
-      });
-  }, []);
-
-  const handleMinhaConta = () => {
-    const usuario = JSON.parse(localStorage.getItem("usuario"));
-
+  // Função para direcionar corretamente para conta
+  const handleAcessarConta = () => {
     if (!usuario) {
       navigate("/login");
       return;
     }
 
-    switch (usuario.tipoPerfil) {
-      case "ADMIN":
-        navigate("/admin/veiculos");
-        break;
-      case "LEILOEIRO":
-        navigate("/conta");
-        break;
-      default:
-        navigate("/conta");
+    if (usuario.email === "admin@example.com") {
+      navigate("/admin/veiculos");
+    } else {
+      navigate("/conta");
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
-    navigate("/login");
-  };
+  useEffect(() => {
+    api
+      .get("/leilao?page=0&size=50")
+      .then((response) => setLeiloes(response.data.content || []))
+      .catch((error) => {
+        console.error("Erro ao buscar leilões:", error);
+        setLeiloes([]);
+      });
 
-  // Categorias fixas + categorias da API
-  const categoriasFixas = [
-    { id: "Todos", nome: "Todas categorias" },
-    { id: "Supercarro", nome: "Supercarro" },
-    { id: "Hatch", nome: "Hatch" },
-    { id: "Sedan", nome: "Sedan" },
-  ];
+    api
+      .get("/categoria?size=100")
+      .then((res) => setCategorias(res.data.content || []))
+      .catch(() => setCategorias([]));
+  }, []);
 
-  // Combinar categorias fixas com categorias da API, removendo duplicatas
   const todasCategorias = [
-    ...categoriasFixas,
-    ...categorias
-      .filter(
-        (cat) =>
-          !categoriasFixas.some(
-            (fixa) => fixa.id === cat.id || fixa.nome === cat.nome
-          )
-      )
-      .map((cat) => ({ id: cat.nome, nome: cat.nome })),
+    { id: "Todos", nome: "Todas categorias" },
+    ...categorias.map((c) => ({ id: c.nome, nome: c.nome })),
   ];
 
-  // Filtro e ordenação
   const leiloesFiltrados = leiloes
-    .filter((leilao) =>
-      leilao.veiculo?.nome.toLowerCase().includes(busca.toLowerCase())
-    )
-    .filter((leilao) =>
-      categoria === "Todos" ? true : leilao.veiculo?.categoria === categoria
+    .filter((l) => l.title?.toLowerCase().includes(busca.toLowerCase()))
+    .filter((l) =>
+      categoria === "Todos" ? true : l.category?.nome === categoria
     )
     .sort((a, b) => {
-      if (ordenacao === "preco") return a.lanceInicial - b.lanceInicial;
       if (ordenacao === "data")
-        return new Date(a.dataFim) - new Date(b.dataFim);
+        return new Date(a.endDateTime) - new Date(b.endDateTime);
       return 0;
     });
 
@@ -103,20 +67,21 @@ const Leiloes = () => {
         <div className="dropdown">
           <button className="logout-button">Minha Conta ⌄</button>
           <div className="dropdown-content">
-            <button onClick={handleMinhaConta}>Acessar Conta</button>
-            <button onClick={handleLogout}>Sair</button>
+            <button onClick={handleAcessarConta}>Acessar Conta</button>
+            <button onClick={() => navigate("/login")}>Sair</button>
           </div>
         </div>
       </header>
 
-      {/* filtros */}
+      {/* Filtros */}
       <div className="filtros">
         <input
           type="text"
-          placeholder="Buscar veículo..."
+          placeholder="Buscar leilão..."
           value={busca}
           onChange={(e) => setBusca(e.target.value)}
         />
+
         <select
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
@@ -127,33 +92,48 @@ const Leiloes = () => {
             </option>
           ))}
         </select>
+
         <select
           value={ordenacao}
           onChange={(e) => setOrdenacao(e.target.value)}
         >
           <option value="padrao">Ordenar por</option>
-          <option value="preco">Menor preço inicial</option>
-          <option value="data">Termina antes</option>
+          <option value="data">Encerra antes</option>
         </select>
       </div>
 
-      {/* lista */}
+      {/* Lista de Leilões */}
       <div className="leiloes-lista">
         {leiloesFiltrados.length === 0 ? (
           <p className="sem-resultados">Nenhum leilão encontrado 🚧</p>
         ) : (
-          leiloesFiltrados.map((leilao) => (
-            <div key={leilao.id} className="leilao-card">
+          leiloesFiltrados.map((l) => (
+            <div key={l.id} className="leilao-card">
               <img
-                src={leilao.veiculo?.imagemUrl || "/placeholder.jpg"}
-                alt={leilao.veiculo?.nome}
+                src={
+                  "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&w=600"
+                }
+                alt="Imagem do leilão"
               />
-              <h2>{leilao.veiculo?.nome}</h2>
-              <p>Lance inicial: R$ {leilao.lanceInicial.toLocaleString()} </p>
+
+              <h2>{l.title}</h2>
+              <p>Categoria: {l.category?.nome || "Não informada"}</p>
               <p>
-                Compra imediata: R$ {leilao.compraImediata.toLocaleString()}
+                Início:{" "}
+                {l.startDateTime
+                  ? new Date(l.startDateTime).toLocaleString("pt-BR")
+                  : "-"}
               </p>
-              <p>Termina em: {new Date(leilao.dataFim).toLocaleString()}</p>
+              <p>
+                Fim:{" "}
+                {l.endDateTime
+                  ? new Date(l.endDateTime).toLocaleString("pt-BR")
+                  : "-"}
+              </p>
+
+              <p>Incremento: R$ {l.incrementValue}</p>
+              <p>Status: {l.status}</p>
+
               <button>Ver Detalhes</button>
             </div>
           ))

@@ -96,7 +96,7 @@ const AuctionForm = () => {
       }
 
       toast.success("Leilão salvo com sucesso!");
-      navigate("/admin/leilao", { replace: true });
+      navigate(-1);
 
     } catch (err) {
       console.error(err);

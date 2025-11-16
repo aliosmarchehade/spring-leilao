@@ -22,7 +22,8 @@ public class AdminInitializer {
             PasswordEncoder passwordEncoder) {
 
         return args -> {
-            // 1 Garante que exista o perfil ADMIN
+
+            // ✔️ Garante que existe o perfil ADMIN
             Perfil perfilAdmin = perfilRepository.findByNome("ADMIN")
                     .orElseGet(() -> {
                         Perfil novo = new Perfil();
@@ -30,16 +31,23 @@ public class AdminInitializer {
                         return perfilRepository.save(novo);
                     });
 
-            // 2️ Verifica se a pessoa admin já existe
+            // ✔️ Garante que existe o perfil USER
+            Perfil perfilUser = perfilRepository.findByNome("USER")
+                    .orElseGet(() -> {
+                        Perfil novo = new Perfil();
+                        novo.setNome("USER");
+                        return perfilRepository.save(novo);
+                    });
+
+            // ✔️ Se o admin ainda não existe, cria
             if (!pessoaRepository.existsByEmail("admin@example.com")) {
 
-                // Cria a pessoa
                 Pessoa admin = new Pessoa();
                 admin.setNome("Administrador do Sistema");
                 admin.setEmail("admin@example.com");
                 admin.setSenha(passwordEncoder.encode("admin123"));
 
-                // Associa perfil ADMIN
+                // associa perfil ADMIN
                 PessoaPerfil pessoaPerfil = new PessoaPerfil();
                 pessoaPerfil.setPerfil(perfilAdmin);
                 pessoaPerfil.setPessoa(admin);
@@ -48,7 +56,7 @@ public class AdminInitializer {
 
                 pessoaRepository.save(admin);
 
-                System.out.println("✅ Usuário admin criado: admin@example.com / admin123");
+                System.out.println("✅ Usuário ADMIN criado: admin@example.com / admin123");
             } else {
                 System.out.println("ℹ️ Usuário admin já existe.");
             }

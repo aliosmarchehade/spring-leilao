@@ -1,69 +1,90 @@
 .auction-form-container {
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    background: #570e53;
-  }
-  
-  .auction-form-content {
-    flex: 1;
-    padding: 2rem 3rem;
-    color: #fff;
-  }
-  
-  .auction-form-btn-voltar {
-    background: transparent;
-    border: none;
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
-  
-  .auction-form-title {
-    margin-bottom: 2rem;
-    font-size: 1.8rem;
-  }
-  
-  .auction-form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.4rem;
-  }
-  
-  .auction-form-field {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .auction-form-field.full {
-    grid-column: span 2;
-  }
-  
-  .auction-form-field label {
-    margin-bottom: 0.4rem;
-  }
-  
-  .auction-form-field input,
-  .auction-form-field select {
-    padding: 0.6rem;
-    border-radius: 6px;
-    border: none;
-    outline: none;
-  }
-  
-  .auction-form-btn-save {
-    margin-top: 2rem;
-    background: #1491ff;
-    padding: 0.7rem 1.5rem;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  
-  .auction-form-btn-save:hover {
-    background: #0c6ec5;
-  }
-  
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background: #570e53;
+}
+
+.auction-form-content {
+  flex: 1;
+  padding: 2rem 3rem;
+  color: #fff;
+}
+
+.auction-form-btn-voltar {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.auction-form-title {
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+/* ----------- GRID ----------- */
+.auction-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.4rem;
+}
+
+.auction-form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.auction-form-field.full {
+  grid-column: span 2;
+}
+
+.auction-form-field label {
+  margin-bottom: 0.4rem;
+}
+
+/* -----------------------------
+  CAMPOS COMUNS (EXCETO FILE)
+------------------------------ */
+.auction-form-field input:not([type="file"]),
+.auction-form-field select {
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+/* -----------------------------------
+  🔥 ESTILIZAÇÃO DO INPUT FILE (NOVA)
+------------------------------------ */
+.auction-form-field input[type="file"] {
+  padding: 0.6rem;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #000000;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  height: auto;
+  display: block;
+  z-index: 20;
+  position: relative;
+}
+
+/* botão de salvar */
+.auction-form-btn-save {
+  margin-top: 2rem;
+  background: #1491ff;
+  padding: 0.7rem 1.5rem;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.auction-form-btn-save:hover {
+  background: #0c6ec5;
+}

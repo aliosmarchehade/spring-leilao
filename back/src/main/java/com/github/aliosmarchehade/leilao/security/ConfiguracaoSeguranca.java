@@ -61,8 +61,7 @@ public class ConfiguracaoSeguranca {
                 // ✅ Libera visualização pública dos leilões
                 .requestMatchers("/leiloes/**").permitAll()
 
-                // (Opcional) Endpoints administrativos — só ADMIN
-                .requestMatchers("/admin/**").hasRole("ADMIN")
+                
 
                 // Tudo o mais exige login
                 .anyRequest().authenticated()

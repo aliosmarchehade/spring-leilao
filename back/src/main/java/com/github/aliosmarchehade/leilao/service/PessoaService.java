@@ -2,6 +2,7 @@ package com.github.aliosmarchehade.leilao.service;
 
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
 import com.github.aliosmarchehade.leilao.exception.NaoEncontradoExcecao;
+import com.github.aliosmarchehade.leilao.model.Perfil;
 import com.github.aliosmarchehade.leilao.model.Pessoa;
+import com.github.aliosmarchehade.leilao.model.PessoaPerfil;
+import com.github.aliosmarchehade.leilao.repository.PerfilRepository;
 import com.github.aliosmarchehade.leilao.repository.PessoaRepository;
 
 import jakarta.transaction.Transactional;
@@ -36,15 +40,29 @@ public class PessoaService implements UserDetailsService{
 
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public Pessoa inserir(Pessoa pessoa){
+    @Autowired
+private PerfilRepository perfilRepository;
 
-        pessoa.setSenha(encoder.encode(pessoa.getSenha()));
-        Pessoa pessoaCadastrada = pessoaRepository.save(pessoa);
-        //emailService.enviarEmailSimples(pessoaCadastrada.getEmail(), 
-        //"Cadastrado com Sucesso", "Cadastro no Sistema de Leilão XXX foi feito com sucesso!");
-        enviarEmailSucesso(pessoaCadastrada);
-        return pessoaCadastrada;
-    }
+public Pessoa inserir(Pessoa pessoa){
+
+    pessoa.setSenha(encoder.encode(pessoa.getSenha()));
+
+    // Perfil USER padrão
+    Perfil perfilUser = perfilRepository.findByNome("USER")
+            .orElseThrow(() -> new RuntimeException("Perfil USER não encontrado"));
+
+    PessoaPerfil pessoaPerfil = new PessoaPerfil();
+    pessoaPerfil.setPerfil(perfilUser);
+    pessoaPerfil.setPessoa(pessoa);
+
+    pessoa.setPessoaPerfil(List.of(pessoaPerfil));
+
+    Pessoa pessoaCadastrada = pessoaRepository.save(pessoa);
+
+    enviarEmailSucesso(pessoaCadastrada);
+    return pessoaCadastrada;
+}
+
 
     private void enviarEmailSucesso(Pessoa pessoa){
         Context context = new Context();

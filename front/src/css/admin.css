@@ -1,88 +1,72 @@
-.admin-container{
-    max-width: 600px;
-    height: 100px;
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(185, 106, 106, 0.1);
-    background-color: #000000;
-    text-align: center;
+/* ===== CONTAINER PRINCIPAL ===== */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #570e53;
+  font-family: "Poppins", sans-serif;
 }
 
-.top-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+/* ===== CONTEÚDO PRINCIPAL ===== */
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+  margin: 2rem;
+  background-color: #d9d9d9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* ===== BOTÃO VOLTAR ===== */
+.botaovoltar button {
+  background-color: #861570;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.botaovoltar button:hover {
+  background-color: #ce2cae;
+}
+
+/* ===== TÍTULO ===== */
+.admin-content h2 {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* ===== CARD DO GRÁFICO ===== */
+.chart-card {
+  width: 100%;
+  height: 350px;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ===== TEXTO QUANDO NÃO HÁ DADOS ===== */
+.no-chart-data {
+  text-align: center;
+  color: #555;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  .admin-content {
+    margin: 1rem;
+    padding: 1rem;
   }
-  
-  .btn-add {
-    background: #3f8f3f;
-    color: white;
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+
+  .chart-card {
+    height: 300px;
   }
-  
-  .table-list {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .table-list th, .table-list td {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-  }
-  
-  .btn-edit {
-    background-color: #3f6f8f;
-    color: white;
-    margin-right: 5px;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .btn-delete {
-    background-color: #8f3f3f;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .generic-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    max-width: 400px;
-  }
-  
-  .generic-form input {
-    padding: 8px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
-  }
-  
-  .btn-save {
-    background: #3f8f3f;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .btn-voltar {
-    background: #777;
-    color: white;
-    padding: 6px 12px;
-    border: none;
-    border-radius: 6px;
-    margin-bottom: 20px;
-    cursor: pointer;
-  }
-  
+}

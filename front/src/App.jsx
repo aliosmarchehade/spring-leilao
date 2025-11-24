@@ -9,6 +9,7 @@ import { fakeUsers } from "./data/usuarios";
 import MinhaConta from "./paginas/MinhaConta";
 import AdminVeiculos from "./paginas/AdminVeiculos";
 import GenericRegisterLeilao from "./GenericRegister/GenericRegister";
+import LeilaoDetalhes from "./paginas/DetalhesLeilao";
 
 
 
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Cadastro />} />
         <Route path="/recuperar" element={<Recuperar />} />
+        
 
         {/* Rotas privadas */}
         <Route element={<RotaPrivadaLayout />}>
@@ -49,6 +51,8 @@ const App = () => {
          {/* 🆕 Rotas de Carro */}
           <Route path="/admin/carros/form" element={<AuctionForm />} />
         
+          <Route path="/leilao/:id" element={<LeilaoDetalhes />} />
+
 
         {/* Redirecionamento padrão */}
         <Route path="*" element={<Login />} />

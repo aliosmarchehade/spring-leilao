@@ -18,6 +18,11 @@ public class LeilaoService {
         return repository.findAll(pageable);
     }
 
+    public Leilao buscarPorId(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Leilão não encontrado!"));
+    }
+
     public Leilao inserir(Leilao leilao) {
         return repository.save(leilao);
     }

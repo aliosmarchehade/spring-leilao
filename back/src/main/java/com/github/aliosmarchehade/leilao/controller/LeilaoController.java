@@ -33,6 +33,11 @@ public class LeilaoController {
         return ResponseEntity.ok(leilaoService.alterar(leilao));
     }
 
+    @GetMapping("/{id}")
+public ResponseEntity<Leilao> buscarPorId(@PathVariable Long id) {
+    return ResponseEntity.ok(leilaoService.buscarPorId(id));
+}
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> excluir(@PathVariable("id") Long id) {
         leilaoService.deletar(id);

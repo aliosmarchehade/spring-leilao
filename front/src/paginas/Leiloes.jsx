@@ -134,7 +134,9 @@ const Leiloes = () => {
               <p>Incremento: R$ {l.incrementValue}</p>
               <p>Status: {l.status}</p>
 
-              <button>Ver Detalhes</button>
+              <button onClick={() => navigate(`/leilao/${l.id}`)}>
+              Ver Detalhes
+            </button>
             </div>
           ))
         )}

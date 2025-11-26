@@ -178,3 +178,66 @@
     margin: 10px 0;
   }
   
+  .botao-lance {
+    margin-top: 20px;
+    padding: 12px 20px;
+    background-color: #0077ff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .botao-lance:hover {
+    background-color: #005fcc;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
+  }
+  
+  .input-lance {
+    width: 100%;
+    padding: 10px;
+    margin-top: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+  
+  .btn-confirmar {
+    margin-top: 15px;
+    padding: 12px;
+    width: 100%;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  
+  .btn-cancelar {
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: gray;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  
